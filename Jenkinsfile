@@ -1,7 +1,17 @@
 pipeline {
     agent any
 
+    environment {
+        MAVEN_HOME = tool 'Maven'
+        PATH = "${env.MAVEN_HOME}/bin:${env.PATH}"
+    }
+
     stages {
+        stage('Declarative: Checkout SCM') {
+            steps {
+                checkout scm
+            }
+        }
 
         stage('Clean Install') {
             steps {
