@@ -22,10 +22,11 @@ pipeline {
         stage('Run Docker Container') {
             steps {
                 script {
-                    sh 'docker run -d -p 8080:8080 sweetmustard/hello:latest'
+                    sh 'docker stop hello-container || true'
+                    sh 'docker rm hello-container || true'
+                    sh 'docker run -d -p 8080:8080 --name hello-container sweetmustard/hello:latest'
                 }
             }
         }
-
     }
 }
